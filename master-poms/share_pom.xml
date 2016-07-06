@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.alvexcore.share</groupId>
+    <artifactId>master</artifactId>
+    <version>1.1</version>
+    <name>Alvex share master pom</name>
+    <packaging>pom</packaging>
+
+    <parent>
+        <groupId>com.alvexcore</groupId>
+        <artifactId>master</artifactId>
+        <version>1.1</version>
+    </parent>
+
+    <properties>
+        <app.amp.client.war.artifactId>${alfresco.share.artifactId}</app.amp.client.war.artifactId>
+        <maven.tomcat.port>8081</maven.tomcat.port>
+        <alfresco.repo.url>http://localhost:8080/alfresco</alfresco.repo.url>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>${alfresco.groupId}</groupId>
+            <artifactId>share</artifactId>
+            <version>${alfresco.version}</version>
+            <classifier>classes</classifier>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.extensions.surf</groupId>
+            <artifactId>spring-surf-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>net.alchim31.maven</groupId>
+                <artifactId>yuicompressor-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+    <profiles>
+        <profile>
+            <id>make-jar</id>
+
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-assembly-plugin</artifactId>
+                        <version>2.4</version>
+                        <dependencies>
+                            <dependency>
+                                <groupId>com.alvexcore</groupId>
+                                <artifactId>assembly-descriptors</artifactId>
+                                <version>1.1</version>
+                            </dependency>
+                        </dependencies>
+                        <configuration>
+                            <appendAssemblyId>false</appendAssemblyId>
+                            <attach>false</attach>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>make-installable-jar</id>
+                                <phase>prepare-package</phase>
+                                <goals>
+                                    <goal>single</goal>
+                                </goals>
+                                <configuration>
+                                    <classifier>installable</classifier>
+                                    <finalName>${project.build.finalName}-installable</finalName>
+                                    <descriptorRefs>share</descriptorRefs>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>build-helper-maven-plugin</artifactId>
+                        <version>1.8</version>
+                        <executions>
+                            <execution>
+                                <id>attach-artifacts</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>attach-artifact</goal>
+                                </goals>
+                                <configuration>
+                                    <artifacts>
+                                        <artifact>
+                                            <file>${project.build.directory}/${project.build.finalName}-installable.jar</file>
+                                            <type>jar</type>
+                                            <classifier>installable</classifier>
+                                        </artifact>
+                                    </artifacts>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+</project>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.alvexcore</groupId>
+    <artifactId>master</artifactId>
+    <version>1.1</version>
+    <name>Alvex master pom</name>
+    <packaging>pom</packaging>
+
+    <properties>
+        <packaging.type>amp</packaging.type>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+    </properties>
+
+    <parent>
+        <groupId>org.alfresco.maven</groupId>
+        <artifactId>alfresco-sdk-parent</artifactId>
+        <version>2.2.0</version>
+    </parent>
+    
+    <repositories>
+        <repository>
+            <id>itd-repository</id>
+            <name>ITD Maven Repository</name>
+            <url>http://maven.itdhq.com/pub/repository</url>
+        </repository>
+    </repositories>
+
+    <distributionManagement>
+        <repository>
+            <id>itd-repository</id>
+            <url>ftp://maven.itdhq.com/pub/repository</url>
+        </repository>
+    </distributionManagement>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>${alfresco.groupId}</groupId>
+                <artifactId>alfresco-platform-distribution</artifactId>
+                <version>${alfresco.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <extensions>
+            <extension>
+                <groupId>org.apache.maven.wagon</groupId>
+                <artifactId>wagon-ftp</artifactId>
+                <version>2.10</version>
+            </extension>
+        </extensions>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.3</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <profiles>
+        <profile>
+            <id>make-jar</id>
+            <properties>
+                <packaging.type>jar</packaging.type>
+            </properties>
+        </profile>
+    </profiles>
+</project>
