@@ -21,14 +21,6 @@
         <version>2.2.0</version>
     </parent>
     
-    <repositories>
-        <repository>
-            <id>itd-repository</id>
-            <name>ITD Maven Repository</name>
-            <url>http://maven.itdhq.com/pub/repository</url>
-        </repository>
-    </repositories>
-
     <distributionManagement>
         <repository>
             <id>itd-repository</id>
@@ -47,6 +39,13 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>itd-repository</id>
+            <url>ftp://maven.itdhq.com/pub/repository</url>
+        </pluginRepository>
+    </pluginRepositories>
 
     <build>
         <extensions>
