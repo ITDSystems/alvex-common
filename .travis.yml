@@ -1,0 +1,19 @@
+sudo: false
+
+language: java
+jdk:
+  - oraclejdk8
+
+cache:
+    directories:
+        - $HOME/.m2
+        - $HOME/apache-maven-3.3.9
+
+script:
+    - rm -rf $HOME/.m2/repository/com/alvexcore
+    - scripts/mvn.sh -f activiti-connector/repo/pom.xml clean package -P make-jar
+    - scripts/mvn.sh -f activiti-connector/repo/pom.xml clean package
+    - scripts/mvn.sh -f utils/repo/pom.xml clean package
+    - scripts/mvn.sh -f utils/repo/pom.xml clean package -P make-jar
+    - scripts/mvn.sh -f utils/share/pom.xml clean package
+    - scripts/mvn.sh -f utils/share/pom.xml clean package -P make-jar
