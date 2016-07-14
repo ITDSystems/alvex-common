@@ -43,7 +43,7 @@
     <pluginRepositories>
         <pluginRepository>
             <id>itd-repository</id>
-            <url>ftp://maven.itdhq.com/pub/repository</url>
+            <url>http://maven.itdhq.com/pub/repository</url>
         </pluginRepository>
     </pluginRepositories>
 
