@@ -18,18 +18,15 @@
  */
 package com.alvexcore.repo.jscript;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-
+import com.alvexcore.repo.RepositoryExtension;
+import com.alvexcore.repo.RepositoryExtensionRegistry;
 import org.alfresco.repo.jscript.BaseScopableProcessorExtension;
 import org.alfresco.repo.jscript.ValueConverter;
 import org.mozilla.javascript.Scriptable;
 import org.springframework.beans.factory.annotation.Required;
 
-import com.alvexcore.license.LicenseInfo;
-import com.alvexcore.license.LicenseStatus;
-import com.alvexcore.repo.RepositoryExtension;
-import com.alvexcore.repo.RepositoryExtensionRegistry;
+import java.io.Serializable;
+import java.util.ArrayList;
 
 /**
  * Root scope object implementation for Repository
@@ -53,37 +50,5 @@ public class JSRepositoryExtensionRegistry extends BaseScopableProcessorExtensio
 		for (RepositoryExtension ext: registry.getInstalledExtensions())
 			result.add(new JSRepositoryExtension(registry.getServiceRegistry(), getScope(), ext));
 		return (Scriptable)converter.convertValueForScript(registry.getServiceRegistry(), getScope(), null, result);
-	}
-
-	public String getSystemId() {
-		return registry.getSystemId();
-	}
-
-	public int getServerCores() {
-		return registry.getServerCores();
-	}
-
-	public long getRegisteredUsers() {
-		return registry.getRegisteredUsers();
-	}
-
-	public LicenseInfo getLicense() {
-		return registry.getLicenseInfo();
-	}
-	
-	public LicenseStatus checkLicense() {
-		return registry.getLicenseStatus();
-	}
-	
-	public String getReleaseVersion() {
-		return registry.getVersion();
-	}
-	
-	public String getReleaseEdition() {
-		return registry.getEdition();
-	}
-	
-	public String getReleaseCodename() {
-		return registry.getCodename();
 	}
 }

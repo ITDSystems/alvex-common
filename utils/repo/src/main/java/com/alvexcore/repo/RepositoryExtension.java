@@ -59,24 +59,11 @@ public abstract class RepositoryExtension implements InitializingBean {
 	protected String fileListPath = null;
 	protected String extInfoPath = null;
 
-	final private String PROP_VERSION = "extension.version";
-	final private String PROP_EDITION = "extension.edition";
-
-	final private String DEV_VERSION = "dev";
-	final private String DEV_EDITION = "dev";
-	
 	private Map<String, Map<String, NodeRef>> nodeCache = new HashMap<String, Map<String, NodeRef>>();
 
 	// constructor
 	public RepositoryExtension() throws Exception {
-		try {
-			md5 = MessageDigest.getInstance("MD5");
-		} catch (Exception e) {
-			throw new Exception(
-					"There is no MD5 algorithm support, but we really need it.",
-					e);
-		}
-		
+
 		CONFIG_PATH[0] = AlvexContentModel.ASSOC_NAME_SYSTEM;
 		CONFIG_PATH[1] = AlvexContentModel.ASSOC_NAME_ALVEX;
 		CONFIG_PATH[2] = AlvexContentModel.ASSOC_NAME_CONFIG;
@@ -108,65 +95,6 @@ public abstract class RepositoryExtension implements InitializingBean {
 		return id;
 	}
 
-	// returns extension version
-	public String getVersion() {
-		return version;
-	}
-
-	// returns extension edition
-	public String getEdition() {
-		return edition;
-	}
-
-	// returns md5 hash for a specified file
-	protected String getMD5Hash(String file) throws Exception {
-		if (file.isEmpty())
-			return "MISSED_FILE_NAME"; // FIXME debug only
-		InputStream is = this.getClass().getClassLoader()
-				.getResourceAsStream(file);
-		if (is == null)
-			throw new Exception("Can't find specified resource.");
-		byte[] bytesOfMessage = IOUtils.toByteArray(is);
-		byte[] digest = md5.digest(bytesOfMessage);
-		String result = "";
-
-		for (int i = 0; i < digest.length; i++) {
-			result += Integer.toString((digest[i] & 0xff) + 0x100, 16)
-					.substring(1);
-		}
-		is.close();
-		return result;
-	}
-
-	// returns md5 hashes for all extension files
-	public Map<String, String> getMD5Hashes() throws Exception {
-		// read list of files
-		InputStream is = null;
-		try {
-			is = this.getClass().getClassLoader()
-					.getResourceAsStream(fileListPath);
-		} catch (Exception e) {
-			throw new Exception("Error occured while opening file list.", e);
-		}
-
-		BufferedReader br = new BufferedReader(new InputStreamReader(is));
-		String filePath;
-		String md5hash;
-		Map<String, String> md5hashes = new HashMap<String, String>();
-		while ((filePath = br.readLine()) != null) {
-			try {
-				md5hash = getMD5Hash(filePath);
-			} catch (Exception e) {
-				md5hash = "ERROR";
-			}
-			md5hashes.put(filePath, md5hash);
-
-		}
-		is.close();
-
-		return md5hashes;
-	}
-
 
 	public void init(boolean failIfInitialized) throws Exception {
 		DATA_PATH[3] = CONFIG_PATH[3] = QName.createQName(AlvexContentModel.ALVEX_MODEL_URI, id);
@@ -174,26 +102,11 @@ public abstract class RepositoryExtension implements InitializingBean {
 		if (isInitialized() && failIfInitialized)
 			throw new Exception("Extension has been initialized already");
 
-		InputStream is = this.getClass().getClassLoader()
-				.getResourceAsStream(extInfoPath);
-		if (is != null) {
-			Properties props = new Properties();
-			props.load(is);
-			version = (props.getProperty(PROP_VERSION) != null) ? props
-					.getProperty(PROP_VERSION) : DEV_VERSION;
-			edition = (props.getProperty(PROP_EDITION) != null) ? props
-					.getProperty(PROP_EDITION) : DEV_EDITION;
-			// check if installation was upgraded
-		} else {
-			version = DEV_VERSION;
-			edition = DEV_EDITION;
-		}
 		// create data folder if needed
 		NodeRef dataPath = extensionRegistry.resolvePath(DATA_PATH, null);
 		if (dataPath == null)
 			dataPath = extensionRegistry.createPath(DATA_PATH, null, DATA_TYPES);
 		addNodeToCache(ID_DATA_PATH, dataPath);
-		updateExtensionInfo();
 	}
 
 	public void drop(boolean all) throws Exception {
@@ -211,23 +124,6 @@ public abstract class RepositoryExtension implements InitializingBean {
 	public boolean isInitialized() {
 		return extensionRegistry.resolvePath(DATA_PATH, null) != null
 				&& extensionRegistry.resolvePath(CONFIG_PATH, null) != null;
-	}
-
-	// updates extension info in repository and runs upgradeConfiguration() if
-	// necessary
-	protected void updateExtensionInfo() throws Exception {
-		NodeRef node = extensionRegistry.createPath(CONFIG_PATH, null, CONFIG_TYPES);
-		NodeService nodeService = serviceRegistry.getNodeService();
-
-		String edition = (String) nodeService.getProperty(node,
-				AlvexContentModel.PROP_EXTENSION_EDITION);
-		String version = (String) nodeService.getProperty(node,
-				AlvexContentModel.PROP_EXTENSION_VERSION);
-		// store current edition and version
-		nodeService.setProperty(node, AlvexContentModel.PROP_EXTENSION_VERSION,
-				version);
-		nodeService.setProperty(node, AlvexContentModel.PROP_EXTENSION_EDITION,
-				edition);
 	}
 
 	@Required

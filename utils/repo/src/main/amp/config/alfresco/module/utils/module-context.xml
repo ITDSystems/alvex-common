@@ -24,5 +24,6 @@
 				cannot for example register policies on them. -->
 	<import resource="classpath:alfresco/module/${project.artifactId}/context/alvex-extension-registry-context.xml" />
     <import resource="classpath:alfresco/module/${project.artifactId}/context/alvex-extension-registry-cron-context.xml" />
+	<import resource="classpath:alfresco/module/${project.artifactId}/context/alvex-activiti-connector-context.xml" />
 
 </beans>

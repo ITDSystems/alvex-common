@@ -1,21 +1,18 @@
 package com.alvexcore.repo.jscript;
 
-import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Map;
-
+import com.alvexcore.repo.RepositoryExtension;
 import org.alfresco.repo.jscript.ValueConverter;
 import org.alfresco.service.ServiceRegistry;
 import org.mozilla.javascript.Scriptable;
 
-import com.alvexcore.repo.RepositoryExtension;
+import java.io.Serializable;
 
 public class JSRepositoryExtension implements Serializable{
 	private static final long serialVersionUID = -6284708320747731858L;
-	private ServiceRegistry serviceRegistry;
-	private RepositoryExtension extension;
-	private Scriptable scope;
-	private ValueConverter converter = new ValueConverter();
+	protected ServiceRegistry serviceRegistry;
+	protected RepositoryExtension extension;
+	protected Scriptable scope;
+	protected ValueConverter converter = new ValueConverter();
 
 	public JSRepositoryExtension(ServiceRegistry serviceRegistry, final Scriptable scope,
 			RepositoryExtension extension) {
@@ -28,22 +25,7 @@ public class JSRepositoryExtension implements Serializable{
 		return extension.getId();
 	}
 	
-	public String getEdition() {
-		return extension.getEdition();
-	}
-	
-	public String getVersion() {
-		return extension.getVersion();
-	}
-	
-	public Scriptable getMD5Hashes() throws Exception {
-		HashMap<String, String> result = new HashMap<String, String>();
-		Map<String, String> hashes = extension.getMD5Hashes();
-		for (String key: hashes.keySet())
-			result.put(key, hashes.get(key));
-		return (Scriptable)converter.convertValueForScript(serviceRegistry, scope, null, result);
-	}
-	
+
 	public void init(boolean failIfInitialized) throws Exception {
 		extension.init(failIfInitialized);
 	}

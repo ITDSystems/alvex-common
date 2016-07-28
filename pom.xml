@@ -1,0 +1,43 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                             http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.alvexcore</groupId>
+    <artifactId>common</artifactId>
+    <packaging>pom</packaging>
+    <version>1.1</version>
+    <name>Alvex</name>
+
+    <repositories>
+        <repository>
+            <id>itd-repository</id>
+            <name>ITD Maven Repository</name>
+            <url>http://maven.itdhq.com/pub/repository</url>
+        </repository>
+    </repositories>
+
+    <distributionManagement>
+        <repository>
+            <id>itd-repository</id>
+            <url>ftp://maven.itdhq.com/pub/repository</url>
+        </repository>
+    </distributionManagement>    
+
+    <modules>
+        <module>utils/repo</module>
+        <module>utils/share</module>
+    </modules>
+
+    <build>
+        <extensions>
+            <extension>
+                <groupId>org.apache.maven.wagon</groupId>
+                <artifactId>wagon-ftp</artifactId>
+                <version>2.10</version>
+            </extension>
+        </extensions>
+    </build>
+
+</project>

@@ -11,8 +11,6 @@ cache:
 
 script:
     - rm -rf $HOME/.m2/repository/com/alvexcore
-    - scripts/mvn.sh -f activiti-connector/repo/pom.xml clean package -P make-jar
-    - scripts/mvn.sh -f activiti-connector/repo/pom.xml clean package
     - scripts/mvn.sh -f utils/repo/pom.xml clean package
     - scripts/mvn.sh -f utils/repo/pom.xml clean package -P make-jar
     - scripts/mvn.sh -f utils/share/pom.xml clean package
