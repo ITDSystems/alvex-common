@@ -5,4 +5,4 @@
 export M2_HOME="$HOME/apache-maven-3.3.9/"
 export M2="$M2_HOME/bin"
 
-"$M2/mvn" $@
+"$M2/mvn" -B $@
