@@ -1,14 +1,13 @@
 [![Build Status](https://travis-ci.org/ITDSystems/alvex-common.svg?branch=master)](https://travis-ci.org/ITDSystems/alvex-common)
 
-Alvex common files
-==================
+# Alvex common files
 
 This repository contains code and configuration files that are common for all Alvex components.
 
-Build
------
+# Downloads
 
-The component may be packaged in two ways: *amp* and *jar*.
-To build amp use `mvn clean package`, to build installable jar use `mvn -P make-jar clean package`.
+Alvex component builds are automatically published to [nexus.itdhq.com](http://nexus.itdhq.com) by Travis CI.
 
-**Note**: this project requires Maven 3.3.9 at least.
+# Build
+
+To build Alvex follow [this guide](https://github.com/ITDSystems/alvex#build-component-from-source).
