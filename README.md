@@ -1,13 +1,17 @@
 [![Build Status](https://travis-ci.org/ITDSystems/alvex-common.svg?branch=master)](https://travis-ci.org/ITDSystems/alvex-common)
 
-# Alvex common files
+Alvex common files
+========================
 
 This repository contains code and configuration files that are common for all Alvex components.
 
+Compatible with Alfresco 5.1.
+
 # Downloads
 
-Alvex component builds are automatically published to [nexus.itdhq.com](http://nexus.itdhq.com) by Travis CI.
+Download ready-to-use Alvex components via [Alvex](https://github.com/ITDSystems/alvex#downloads).
 
-# Build
+# Build from source
 
 To build Alvex follow [this guide](https://github.com/ITDSystems/alvex#build-component-from-source).
+
