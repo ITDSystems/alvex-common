@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/ITDSystems/alvex-common.svg?branch=master)](https://travis-ci.org/ITDSystems/alvex-common)
+[![Build Status](https://travis-ci.org/ITDSystems/alvex-utils.svg?branch=master)](https://travis-ci.org/ITDSystems/alvex-utils)
 
 Alvex common files
 ========================
