@@ -39,4 +39,11 @@
       <layout>default</layout>
     </repository>
   </repositories>
+  <dependencies>
+    <dependency>
+      <groupId>org.mapdb</groupId>
+      <artifactId>mapdb</artifactId>
+      <version>3.0.4</version>
+    </dependency>
+  </dependencies>
 </project>
