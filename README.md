@@ -5,7 +5,10 @@ Alvex common files
 
 This repository contains code and configuration files that are common for all Alvex components.
 
-Compatible with Alfresco 5.1.
+Compatible with Alfresco 5.2.
+
+This component depends on:
+* [MapDB](https://github.com/jankotek/mapdb/)
 
 # Downloads
 
