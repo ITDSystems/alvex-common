@@ -18,6 +18,7 @@
  */
 package com.alvexcore.repo;
 
+import com.alvexcore.repo.tools.ClasspathURLStreamHandlerFactory;
 import org.alfresco.error.AlfrescoRuntimeException;
 import org.alfresco.model.ContentModel;
 import org.alfresco.repo.model.Repository;
@@ -39,6 +40,10 @@ import org.springframework.beans.factory.annotation.Required;
 import org.springframework.context.ApplicationEvent;
 import org.springframework.extensions.surf.util.AbstractLifecycleBean;
 
+import java.lang.reflect.Field;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLStreamHandlerFactory;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,6 +58,10 @@ public class RepositoryExtensionRegistry extends AbstractLifecycleBean implement
 	private ServiceRegistry serviceRegistry = null;
 	private TenantService tenantService = null;
 	private TenantAdminService tenantAdminService = null;
+
+	public RepositoryExtensionRegistry() throws IllegalAccessException, NoSuchFieldException {
+		ClasspathURLStreamHandlerFactory.inject();
+	}
 
 	// list of extensions
 	protected List<RepositoryExtension> extensions = new ArrayList<RepositoryExtension>();
