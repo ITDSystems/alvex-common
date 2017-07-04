@@ -40,14 +40,12 @@ import org.springframework.beans.factory.annotation.Required;
 import org.springframework.context.ApplicationEvent;
 import org.springframework.extensions.surf.util.AbstractLifecycleBean;
 
-import java.lang.reflect.Field;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLStreamHandlerFactory;
 import java.util.ArrayList;
 import java.util.List;
 
 public class RepositoryExtensionRegistry extends AbstractLifecycleBean implements TenantDeployer, InitializingBean {
+
+	public static final String ALVEX_GLOBAL_KEY_VALUE_STORE = "ALVEX";
 
 	private static Log logger = LogFactory.getLog(RepositoryExtensionRegistry.class);
 	
