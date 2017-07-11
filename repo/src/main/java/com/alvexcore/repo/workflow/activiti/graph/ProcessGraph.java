@@ -134,7 +134,7 @@ public class ProcessGraph {
             maxDistance = Integer.MAX_VALUE;
 
         if (nodeClass == null)
-            nodeClass = UserTask.class;
+            nodeClass = FlowNode.class;
 
         if (startNode == null)
             startNode = startEvent.getId();
