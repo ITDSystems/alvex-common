@@ -31,6 +31,7 @@ import org.activiti.engine.delegate.ExecutionListener;
 import org.activiti.engine.delegate.TaskListener;
 import org.activiti.engine.impl.bpmn.behavior.AbstractBpmnActivityBehavior;
 import org.activiti.engine.impl.bpmn.behavior.ParallelMultiInstanceBehavior;
+import org.activiti.engine.impl.bpmn.behavior.SequentialMultiInstanceBehavior;
 import org.activiti.engine.impl.bpmn.behavior.UserTaskActivityBehavior;
 import org.activiti.engine.impl.bpmn.parser.BpmnParse;
 import org.activiti.engine.impl.persistence.entity.ProcessDefinitionEntity;
@@ -166,6 +167,14 @@ public class AlvexPostBpmnParseHandler implements BpmnParseHandler,
 						&& getInnerActivityBehavior != null) {
 				ParallelMultiInstanceBehavior parallelMultiInstanceBehavior = (ParallelMultiInstanceBehavior)activityBehavior;
 				AbstractBpmnActivityBehavior innerActivityBehavior = parallelMultiInstanceBehavior.getInnerActivityBehavior();
+				if (!(innerActivityBehavior instanceof UserTaskActivityBehavior))
+					throw new AlfrescoRuntimeException("Inner behaviour in not instance of UserTaskActivityBehavior");
+				userTaskActivitiBehaviour = (UserTaskActivityBehavior)innerActivityBehavior;
+			}
+            else if (activityBehavior instanceof SequentialMultiInstanceBehavior
+						&& getInnerActivityBehavior != null) {
+				SequentialMultiInstanceBehavior sequentialMultiInstanceBehavior = (SequentialMultiInstanceBehavior)activityBehavior;
+				AbstractBpmnActivityBehavior innerActivityBehavior = sequentialMultiInstanceBehavior.getInnerActivityBehavior();
 				if (!(innerActivityBehavior instanceof UserTaskActivityBehavior))
 					throw new AlfrescoRuntimeException("Inner behaviour in not instance of UserTaskActivityBehavior");
 				userTaskActivitiBehaviour = (UserTaskActivityBehavior)innerActivityBehavior;
