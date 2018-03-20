@@ -9,6 +9,8 @@ Compatible with Alfresco 5.1 and 5.2.
 
 This component requires:
 * [MapDB](https://github.com/jankotek/mapdb/)
+* Aikau 1.0.101 -- Don't try to use 1.0.103, it doesn't work. We recommend to use 1.0.101.10, it's inside Alfresco 6.0.2-EA. In this extension we use 1.0.101.3 as dependency, because 1.0.101.10 has a problem with surf dependency resolution while building extension, don't worry extension will work with newer version.
+* Aikau Forms Runtime Support of the same version as Aikau (it's not inside Alvex ZIP or AMP, be sure to install it manually)
 
 # Using this project
 
