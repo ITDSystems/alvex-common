@@ -56,7 +56,7 @@
     <dependency>
       <groupId>org.alfresco</groupId>
       <artifactId>aikau-forms-runtime-support</artifactId>
-      <version>1.0.101.10</version>
+      <version>1.0.101.3</version>
       <scope>provided</scope>
       <!-- Exclude Aikau's dependency from the AMP -->
       <exclusions>
